@@ -38,13 +38,13 @@ public class SparkStreamConsumer implements Serializable {
 		JavaStreamingContext jssc = new JavaStreamingContext(sconf, Config.getbatchduration());
 		
 		JavaPairInputDStream<String, String> stream = KafkaUtils.createDirectStream(
-													jssc, 
-													String.class, 
-													String.class, 
-													StringDecoder.class, 
-													StringDecoder.class, 
-													K_prop, 
-													topicsSet);
+										jssc, 
+										String.class, 
+										String.class, 
+										StringDecoder.class, 
+										StringDecoder.class, 
+										K_prop, 
+										topicsSet);
 											
 		JavaDStream<String> words = stream.map(new Function<Tuple2<String, String>, String>() {
 		            @Override
@@ -59,6 +59,7 @@ public class SparkStreamConsumer implements Serializable {
 		
 		
 	    jssc.start();
+	    
 	    log.info("Streaming Started ....");
 		jssc.awaitTermination();
 		
